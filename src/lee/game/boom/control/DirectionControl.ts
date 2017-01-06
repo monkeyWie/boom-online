@@ -22,7 +22,7 @@ namespace boom {
                         this.up = new egret.Shape();
                         this.up.graphics.beginFill(0x000000,0.5);
                         this.up.graphics.lineStyle(2);
-                        this.up.graphics.drawRect(100, 100, 20,50);
+                        this.up.graphics.drawRect(100, 100, 40,80);
                         this.up.graphics.endFill();
                         this.up.touchEnabled=true;
                         this.up.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.upBegin,this)

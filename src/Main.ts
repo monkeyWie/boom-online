@@ -120,19 +120,9 @@ class Main extends egret.DisplayObjectContainer {
         let hero: boom.Hero = new boom.Hero();
         let map: boom.Map = new boom.Map();
         let control: boom.DirectionControl = new boom.DirectionControl();
-        // let up: egret.Shape = new egret.Shape();
-        // up.graphics.beginFill(0x000000,0.5);
-        // up.graphics.lineStyle(2);
-        // up.graphics.drawRect(100, 100, 20,50);
-        // up.graphics.endFill();
-        // up.width=20;
-        // up.height=50;
         this.addChild(map);
         this.addChild(hero);
         this.addChild(control);
-        // this.addChild(up);
-        // up.touchEnabled = true;
-        // up.addEventListener(egret.TouchEvent.TOUCH_TAP,this.test,this);
         let main = this;
         document.addEventListener("keydown",function(e){
             switch(e.keyCode){
