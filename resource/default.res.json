@@ -1,0 +1,60 @@
+{
+	"groups": [
+		{
+			"keys": "bg_jpg,egret_icon_png,description_json,haidao_json,haidao_png,cell_brick_png,cell_metal_png,cell_road_png,baobao_json,baobao_png",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/bg.jpg",
+			"type": "image",
+			"name": "bg_jpg"
+		},
+		{
+			"url": "assets/egret_icon.png",
+			"type": "image",
+			"name": "egret_icon_png"
+		},
+		{
+			"url": "config/description.json",
+			"type": "json",
+			"name": "description_json"
+		},
+		{
+			"url": "assets/haidao.json",
+			"type": "json",
+			"name": "haidao_json"
+		},
+		{
+			"url": "assets/haidao.png",
+			"type": "image",
+			"name": "haidao_png"
+		},
+		{
+			"url": "cell_brick.png",
+			"type": "image",
+			"name": "cell_brick_png"
+		},
+		{
+			"url": "cell_metal.png",
+			"type": "image",
+			"name": "cell_metal_png"
+		},
+		{
+			"url": "cell_road.png",
+			"type": "image",
+			"name": "cell_road_png"
+		},
+		{
+			"url": "assets/baobao.json",
+			"type": "json",
+			"name": "baobao_json"
+		},
+		{
+			"url": "assets/baobao.png",
+			"type": "image",
+			"name": "baobao_png"
+		}
+	]
+}
