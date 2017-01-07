@@ -65,11 +65,12 @@ namespace boom {
          * 人物行走
          * @param 方向 up,down,left,right
          */
-        public run(direction: string) {
+        public runStart(direction: string) {
             this.status = direction;
         }
 
-        public stop() {
+        public runStop() {
+            console.log("stop");
             this.status = "";
         }
     }

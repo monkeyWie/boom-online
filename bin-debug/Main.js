@@ -101,38 +101,35 @@ var Main = (function (_super) {
      * Create a game scene
      */
     p.createGameScene = function () {
-        var hero = new boom.Hero();
-        var map = new boom.Map();
-        var control = new boom.DirectionControl();
-        this.addChild(map);
-        this.addChild(hero);
-        this.addChild(control);
+        this.gameScene = new boom.GameScene();
+        this.addChild(this.gameScene);
+        // let hero: boom.Hero = new boom.Hero();
+        // let map: boom.Map = new boom.Map();
+        // let control: boom.DirectionControl = new boom.DirectionControl();
+        // this.addChild(map);
+        // this.addChild(hero);
+        // this.addChild(control);
         var main = this;
         document.addEventListener("keydown", function (e) {
             switch (e.keyCode) {
                 case 38:
-                    hero.run("up");
-                    console.log(1111);
+                    main.gameScene.hero.runStart("up");
                     break;
                 case 40:
-                    hero.run("down");
-                    console.log(2222);
+                    main.gameScene.hero.runStart("down");
                     break;
                 case 37:
-                    hero.run("left");
-                    console.log(3333);
+                    main.gameScene.hero.runStart("left");
                     break;
                 case 39:
-                    hero.run("right");
-                    console.log(4444);
+                    main.gameScene.hero.runStart("right");
                     break;
             }
             return false;
         });
-    };
-    p.test = function () {
-        console.log("test");
-        alert("test");
+        document.addEventListener("keyup", function (e) {
+            main.gameScene.hero.runStop();
+        });
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。

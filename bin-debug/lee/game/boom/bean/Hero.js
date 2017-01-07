@@ -62,10 +62,11 @@ var boom;
          * 人物行走
          * @param 方向 up,down,left,right
          */
-        p.run = function (direction) {
+        p.runStart = function (direction) {
             this.status = direction;
         };
-        p.stop = function () {
+        p.runStop = function () {
+            console.log("stop");
             this.status = "";
         };
         return Hero;

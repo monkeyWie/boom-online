@@ -33,14 +33,14 @@ class Main extends egret.DisplayObjectContainer {
      * 加载进度界面
      * Process interface loading
      */
-    private loadingView:LoadingUI;
+    private loadingView: LoadingUI;
 
     public constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
 
-    private onAddToStage(event:egret.Event) {
+    private onAddToStage(event: egret.Event) {
         //设置加载进度界面
         //Config to load process interface
         this.loadingView = new LoadingUI();
@@ -56,7 +56,7 @@ class Main extends egret.DisplayObjectContainer {
      * 配置文件加载完成,开始预加载preload资源组。
      * configuration file loading is completed, start to pre-load the preload resource group
      */
-    private onConfigComplete(event:RES.ResourceEvent):void {
+    private onConfigComplete(event: RES.ResourceEvent): void {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
@@ -69,7 +69,7 @@ class Main extends egret.DisplayObjectContainer {
      * preload资源组加载完成
      * Preload resource group is loaded
      */
-    private onResourceLoadComplete(event:RES.ResourceEvent):void {
+    private onResourceLoadComplete(event: RES.ResourceEvent): void {
         if (event.groupName == "preload") {
             this.stage.removeChild(this.loadingView);
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
@@ -84,7 +84,7 @@ class Main extends egret.DisplayObjectContainer {
      * 资源组加载出错
      *  The resource group loading failed
      */
-    private onItemLoadError(event:RES.ResourceEvent):void {
+    private onItemLoadError(event: RES.ResourceEvent): void {
         console.warn("Url:" + event.resItem.url + " has failed to load");
     }
 
@@ -92,7 +92,7 @@ class Main extends egret.DisplayObjectContainer {
      * 资源组加载出错
      *  The resource group loading failed
      */
-    private onResourceLoadError(event:RES.ResourceEvent):void {
+    private onResourceLoadError(event: RES.ResourceEvent): void {
         //TODO
         console.warn("Group:" + event.groupName + " has failed to load");
         //忽略加载失败的项目
@@ -104,58 +104,58 @@ class Main extends egret.DisplayObjectContainer {
      * preload资源组加载进度
      * Loading process of preload resource group
      */
-    private onResourceProgress(event:RES.ResourceEvent):void {
+    private onResourceProgress(event: RES.ResourceEvent): void {
         if (event.groupName == "preload") {
             this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
         }
     }
 
-    private textfield:egret.TextField;
+    private textfield: egret.TextField;
 
+    private gameScene: boom.GameScene;
     /**
      * 创建游戏场景
      * Create a game scene
      */
-    private createGameScene():void {
-        let hero: boom.Hero = new boom.Hero();
-        let map: boom.Map = new boom.Map();
-        let control: boom.DirectionControl = new boom.DirectionControl();
-        this.addChild(map);
-        this.addChild(hero);
-        this.addChild(control);
+    private createGameScene(): void {
+        this.gameScene = new boom.GameScene();
+        this.addChild(this.gameScene);
+        // let hero: boom.Hero = new boom.Hero();
+        // let map: boom.Map = new boom.Map();
+        // let control: boom.DirectionControl = new boom.DirectionControl();
+        // this.addChild(map);
+        // this.addChild(hero);
+        // this.addChild(control);
         let main = this;
-        document.addEventListener("keydown",function(e){
-            switch(e.keyCode){
+        document.addEventListener("keydown", function (e) {
+            switch (e.keyCode) {
                 case 38:
-                    hero.run("up");
+                    main.gameScene.hero.runStart("up");
                     break;
                 case 40:
-                    hero.run("down");
+                    main.gameScene.hero.runStart("down");
                     break;
                 case 37:
-                    hero.run("left");
+                    main.gameScene.hero.runStart("left");
                     break;
                 case 39:
-                    hero.run("right");
+                    main.gameScene.hero.runStart("right");
                     break;
             }
             return false;
         });
-        this.addEventListener(egret.Event.ENTER_FRAME,this.draw,this);
-    }
-
-    private test(){
-        console.log("test");
-        alert("test");
+        document.addEventListener("keyup", function (e) {
+            main.gameScene.hero.runStop();
+        });
     }
 
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
      * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
      */
-    private createBitmapByName(name:string):egret.Bitmap {
+    private createBitmapByName(name: string): egret.Bitmap {
         let result = new egret.Bitmap();
-        let texture:egret.Texture = RES.getRes(name);
+        let texture: egret.Texture = RES.getRes(name);
         result.texture = texture;
         return result;
     }
@@ -164,18 +164,18 @@ class Main extends egret.DisplayObjectContainer {
      * 描述文件加载成功，开始播放动画
      * Description file loading is successful, start to play the animation
      */
-    private startAnimation(result:Array<any>):void {
-        let self:any = this;
+    private startAnimation(result: Array<any>): void {
+        let self: any = this;
 
         let parser = new egret.HtmlTextParser();
-        let textflowArr:Array<Array<egret.ITextElement>> = [];
-        for (let i:number = 0; i < result.length; i++) {
+        let textflowArr: Array<Array<egret.ITextElement>> = [];
+        for (let i: number = 0; i < result.length; i++) {
             textflowArr.push(parser.parser(result[i]));
         }
 
         let textfield = self.textfield;
         let count = -1;
-        let change:Function = function () {
+        let change: Function = function () {
             count++;
             if (count >= textflowArr.length) {
                 count = 0;
@@ -185,9 +185,9 @@ class Main extends egret.DisplayObjectContainer {
             self.changeDescription(textfield, lineArr);
 
             let tw = egret.Tween.get(textfield);
-            tw.to({"alpha": 1}, 200);
+            tw.to({ "alpha": 1 }, 200);
             tw.wait(2000);
-            tw.to({"alpha": 0}, 200);
+            tw.to({ "alpha": 0 }, 200);
             tw.call(change, self);
         };
 
@@ -198,7 +198,7 @@ class Main extends egret.DisplayObjectContainer {
      * 切换描述内容
      * Switch to described content
      */
-    private changeDescription(textfield:egret.TextField, textFlow:Array<egret.ITextElement>):void {
+    private changeDescription(textfield: egret.TextField, textFlow: Array<egret.ITextElement>): void {
         textfield.textFlow = textFlow;
     }
 }
