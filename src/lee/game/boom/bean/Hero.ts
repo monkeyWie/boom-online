@@ -4,17 +4,19 @@
  * 英雄类
  */
 namespace boom {
-    export class Hero extends egret.MovieClip{
+    export class Hero extends egret.MovieClip {
         //行走速度
-        private speed:number = 5;
+        private speed: number = 5;
         //动画效果集合
-        private mcds: { [key: string]: egret.MovieClipData; } ;
-        
-        public constructor(){
+        private mcds: { [key: string]: egret.MovieClipData; };
+        //状态
+        private status = "";
+
+        public constructor() {
             super();
             let data = RES.getRes("baobao_json");
             let txtr = RES.getRes("baobao_png");
-            let mcFactory: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data,txtr);
+            let mcFactory: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data, txtr);
             this.mcds = {
                 "up": mcFactory.generateMovieClipData("up"),
                 "down": mcFactory.generateMovieClipData("down"),
@@ -26,25 +28,24 @@ namespace boom {
             this.movieClipData = this.mcds["down"];
             this.gotoAndStop(1);
         }
-        
+
         public getSpped(): number {
             return this.speed;
         }
-        public setSpped(speed:number):void{
-            this.speed=speed;
+        public setSpped(speed: number): void {
+            this.speed = speed;
         }
-        
+
         /**
-         * 人物行走
-         * @param 方向 up,down,left,right
-         */ 
-        public run(direction:string):void{
-            this.movieClipData = this.mcds[direction];
-            if(this.currentFrame==this.totalFrames){
+         * 渲染
+         */
+        public draw() {
+            this.movieClipData = this.mcds[this.status];
+            if (this.currentFrame == this.totalFrames) {
                 this.gotoAndStop(1);
             }
             this.nextFrame();
-            switch(direction){
+            switch (this.status) {
                 case "up":
                     this.y -= this.speed;
                     break;
@@ -58,6 +59,18 @@ namespace boom {
                     this.x += this.speed;
                     break;
             }
+        }
+
+        /**
+         * 人物行走
+         * @param 方向 up,down,left,right
+         */
+        public run(direction: string) {
+            this.status = direction;
+        }
+
+        public stop() {
+            this.status = "";
         }
     }
 }

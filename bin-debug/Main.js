@@ -104,35 +104,30 @@ var Main = (function (_super) {
         var hero = new boom.Hero();
         var map = new boom.Map();
         var control = new boom.DirectionControl();
-        // let up: egret.Shape = new egret.Shape();
-        // up.graphics.beginFill(0x000000,0.5);
-        // up.graphics.lineStyle(2);
-        // up.graphics.drawRect(100, 100, 20,50);
-        // up.graphics.endFill();
-        // up.width=20;
-        // up.height=50;
         this.addChild(map);
         this.addChild(hero);
         this.addChild(control);
-        // this.addChild(up);
-        // up.touchEnabled = true;
-        // up.addEventListener(egret.TouchEvent.TOUCH_TAP,this.test,this);
         var main = this;
         document.addEventListener("keydown", function (e) {
             switch (e.keyCode) {
                 case 38:
                     hero.run("up");
+                    console.log(1111);
                     break;
                 case 40:
                     hero.run("down");
+                    console.log(2222);
                     break;
                 case 37:
                     hero.run("left");
+                    console.log(3333);
                     break;
                 case 39:
                     hero.run("right");
+                    console.log(4444);
                     break;
             }
+            return false;
         });
     };
     p.test = function () {

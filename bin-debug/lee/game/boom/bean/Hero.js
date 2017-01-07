@@ -11,6 +11,8 @@ var boom;
             _super.call(this);
             //行走速度
             this.speed = 5;
+            //状态
+            this.status = "";
             var data = RES.getRes("baobao_json");
             var txtr = RES.getRes("baobao_png");
             var mcFactory = new egret.MovieClipDataFactory(data, txtr);
@@ -33,16 +35,15 @@ var boom;
             this.speed = speed;
         };
         /**
-         * 人物行走
-         * @param 方向 up,down,left,right
+         * 渲染
          */
-        p.run = function (direction) {
-            this.movieClipData = this.mcds[direction];
+        p.draw = function () {
+            this.movieClipData = this.mcds[this.status];
             if (this.currentFrame == this.totalFrames) {
                 this.gotoAndStop(1);
             }
             this.nextFrame();
-            switch (direction) {
+            switch (this.status) {
                 case "up":
                     this.y -= this.speed;
                     break;
@@ -56,6 +57,16 @@ var boom;
                     this.x += this.speed;
                     break;
             }
+        };
+        /**
+         * 人物行走
+         * @param 方向 up,down,left,right
+         */
+        p.run = function (direction) {
+            this.status = direction;
+        };
+        p.stop = function () {
+            this.status = "";
         };
         return Hero;
     }(egret.MovieClip));

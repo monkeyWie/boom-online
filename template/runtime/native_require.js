@@ -12,7 +12,9 @@ var game_file_list = [
 	"libs/modules/tiled/tiled.js",
 	"bin-debug/lee/game/boom/bean/Hero.js",
 	"bin-debug/lee/game/boom/bean/Map.js",
+	"bin-debug/lee/game/boom/bean/Test.js",
 	"bin-debug/lee/game/boom/control/DirectionControl.js",
+	"bin-debug/lee/game/boom/handle/GameHandle.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
 	//----auto game_file_list end----

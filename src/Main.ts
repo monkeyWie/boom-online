@@ -139,7 +139,9 @@ class Main extends egret.DisplayObjectContainer {
                     hero.run("right");
                     break;
             }
+            return false;
         });
+        this.addEventListener(egret.Event.ENTER_FRAME,this.draw,this);
     }
 
     private test(){
