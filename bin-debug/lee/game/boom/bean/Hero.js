@@ -10,7 +10,7 @@ var boom;
         function Hero() {
             _super.call(this);
             //行走速度
-            this.speed = 5;
+            this.speed = 1;
             //状态
             this.status = "";
             var data = RES.getRes("baobao_json");
@@ -25,6 +25,7 @@ var boom;
             //this.scaleX = 2;
             //this.scaleY = 2;
             this.movieClipData = this.mcds["down"];
+            this.frameRate = 48;
             this.gotoAndStop(1);
         }
         var d = __define,c=Hero,p=c.prototype;
@@ -37,24 +38,26 @@ var boom;
         /**
          * 渲染
          */
-        p.draw = function () {
-            this.movieClipData = this.mcds[this.status];
-            if (this.currentFrame == this.totalFrames) {
-                this.gotoAndStop(1);
-            }
-            this.nextFrame();
+        p.draw = function (offset) {
+            // if (this.currentFrame == this.totalFrames) {
+            //     this.gotoAndStop(1);
+            // }
+            //this.nextFrame();
+            //this.gotoAndPlay(1,-1);
+            //修复后的速度
+            var repairSpeed = this.speed * offset;
             switch (this.status) {
                 case "up":
-                    this.y -= this.speed;
+                    this.y -= repairSpeed;
                     break;
                 case "down":
-                    this.y += this.speed;
+                    this.y += repairSpeed;
                     break;
                 case "left":
-                    this.x -= this.speed;
+                    this.x -= repairSpeed;
                     break;
                 case "right":
-                    this.x += this.speed;
+                    this.x += repairSpeed;
                     break;
             }
         };
@@ -63,11 +66,15 @@ var boom;
          * @param 方向 up,down,left,right
          */
         p.runStart = function (direction) {
-            this.status = direction;
+            if (this.status != direction) {
+                this.status = direction;
+                this.movieClipData = this.mcds[this.status];
+                this.gotoAndPlay(1, -1);
+            }
         };
         p.runStop = function () {
-            console.log("stop");
             this.status = "";
+            this.stop();
         };
         return Hero;
     }(egret.MovieClip));

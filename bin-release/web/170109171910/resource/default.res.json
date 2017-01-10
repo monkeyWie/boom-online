@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json,haidao_json,haidao_png,cell_brick_png,cell_metal_png,cell_road_png,baobao_json,baobao_png,control_json",
+			"keys": "bg_jpg,egret_icon_png,description_json,haidao_json,haidao_png,cell_brick_png,cell_metal_png,cell_road_png,baobao_json,baobao_png",
 			"name": "preload"
 		}
 	],
@@ -55,12 +55,6 @@
 			"url": "assets/baobao.png",
 			"type": "image",
 			"name": "baobao_png"
-		},
-		{
-			"name": "control_json",
-			"type": "sheet",
-			"url": "assets/control.json",
-			"subkeys": "control_out_png,control_in_png"
 		}
 	]
 }

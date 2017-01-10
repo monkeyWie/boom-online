@@ -103,78 +103,36 @@ var Main = (function (_super) {
     p.createGameScene = function () {
         this.gameScene = new boom.GameScene();
         this.addChild(this.gameScene);
+        var bg = new egret.Bitmap(RES.getRes("control_in_png"));
+        bg.alpha = 0.9;
+        this.addChild(bg);
         // let hero: boom.Hero = new boom.Hero();
         // let map: boom.Map = new boom.Map();
         // let control: boom.DirectionControl = new boom.DirectionControl();
         // this.addChild(map);
         // this.addChild(hero);
         // this.addChild(control);
-        var main = this;
-        document.addEventListener("keydown", function (e) {
-            switch (e.keyCode) {
-                case 38:
-                    main.gameScene.hero.runStart("up");
-                    break;
-                case 40:
-                    main.gameScene.hero.runStart("down");
-                    break;
-                case 37:
-                    main.gameScene.hero.runStart("left");
-                    break;
-                case 39:
-                    main.gameScene.hero.runStart("right");
-                    break;
-            }
-            return false;
-        });
-        document.addEventListener("keyup", function (e) {
-            main.gameScene.hero.runStop();
-        });
-    };
-    /**
-     * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
-     * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
-     */
-    p.createBitmapByName = function (name) {
-        var result = new egret.Bitmap();
-        var texture = RES.getRes(name);
-        result.texture = texture;
-        return result;
-    };
-    /**
-     * 描述文件加载成功，开始播放动画
-     * Description file loading is successful, start to play the animation
-     */
-    p.startAnimation = function (result) {
-        var self = this;
-        var parser = new egret.HtmlTextParser();
-        var textflowArr = [];
-        for (var i = 0; i < result.length; i++) {
-            textflowArr.push(parser.parser(result[i]));
-        }
-        var textfield = self.textfield;
-        var count = -1;
-        var change = function () {
-            count++;
-            if (count >= textflowArr.length) {
-                count = 0;
-            }
-            var lineArr = textflowArr[count];
-            self.changeDescription(textfield, lineArr);
-            var tw = egret.Tween.get(textfield);
-            tw.to({ "alpha": 1 }, 200);
-            tw.wait(2000);
-            tw.to({ "alpha": 0 }, 200);
-            tw.call(change, self);
-        };
-        change();
-    };
-    /**
-     * 切换描述内容
-     * Switch to described content
-     */
-    p.changeDescription = function (textfield, textFlow) {
-        textfield.textFlow = textFlow;
+        // let main = this;
+        // document.addEventListener("keydown", function (e) {
+        //     switch (e.keyCode) {
+        //         case 38:
+        //             main.gameScene.hero.runStart("up");
+        //             break;
+        //         case 40:
+        //             main.gameScene.hero.runStart("down");
+        //             break;
+        //         case 37:
+        //             main.gameScene.hero.runStart("left");
+        //             break;
+        //         case 39:
+        //             main.gameScene.hero.runStart("right");
+        //             break;
+        //     }
+        //     return false;
+        // });
+        // document.addEventListener("keyup", function (e) {
+        //     main.gameScene.hero.runStop();
+        // });
     };
     return Main;
 }(egret.DisplayObjectContainer));

@@ -6,7 +6,7 @@
 namespace boom {
     export class Hero extends egret.MovieClip {
         //行走速度
-        private speed: number = 5;
+        private speed: number = 1;
         //动画效果集合
         private mcds: { [key: string]: egret.MovieClipData; };
         //状态
@@ -26,6 +26,7 @@ namespace boom {
             //this.scaleX = 2;
             //this.scaleY = 2;
             this.movieClipData = this.mcds["down"];
+            this.frameRate = 48;
             this.gotoAndStop(1);
         }
 
@@ -39,24 +40,26 @@ namespace boom {
         /**
          * 渲染
          */
-        public draw() {
-            this.movieClipData = this.mcds[this.status];
-            if (this.currentFrame == this.totalFrames) {
-                this.gotoAndStop(1);
-            }
-            this.nextFrame();
+        public draw(offset: number) {
+            // if (this.currentFrame == this.totalFrames) {
+            //     this.gotoAndStop(1);
+            // }
+            //this.nextFrame();
+            //this.gotoAndPlay(1,-1);
+            //修复后的速度
+            let repairSpeed = this.speed * offset;
             switch (this.status) {
                 case "up":
-                    this.y -= this.speed;
+                    this.y -= repairSpeed;
                     break;
                 case "down":
-                    this.y += this.speed;
+                    this.y += repairSpeed;
                     break;
                 case "left":
-                    this.x -= this.speed;
+                    this.x -= repairSpeed;
                     break;
                 case "right":
-                    this.x += this.speed;
+                    this.x += repairSpeed;
                     break;
             }
         }
@@ -66,12 +69,16 @@ namespace boom {
          * @param 方向 up,down,left,right
          */
         public runStart(direction: string) {
-            this.status = direction;
+            if (this.status != direction) {
+                this.status = direction;
+                this.movieClipData = this.mcds[this.status];
+                this.gotoAndPlay(1, -1);
+            }
         }
 
         public runStop() {
-            console.log("stop");
             this.status = "";
+            this.stop();
         }
     }
 }

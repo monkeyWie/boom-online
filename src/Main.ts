@@ -120,86 +120,36 @@ class Main extends egret.DisplayObjectContainer {
     private createGameScene(): void {
         this.gameScene = new boom.GameScene();
         this.addChild(this.gameScene);
+        // let bg:egret.Bitmap = new egret.Bitmap(RES.getRes("control_in_png"));
+        // bg.alpha=0.9;
+        // this.addChild(bg);
         // let hero: boom.Hero = new boom.Hero();
         // let map: boom.Map = new boom.Map();
         // let control: boom.DirectionControl = new boom.DirectionControl();
         // this.addChild(map);
         // this.addChild(hero);
         // this.addChild(control);
-        let main = this;
-        document.addEventListener("keydown", function (e) {
-            switch (e.keyCode) {
-                case 38:
-                    main.gameScene.hero.runStart("up");
-                    break;
-                case 40:
-                    main.gameScene.hero.runStart("down");
-                    break;
-                case 37:
-                    main.gameScene.hero.runStart("left");
-                    break;
-                case 39:
-                    main.gameScene.hero.runStart("right");
-                    break;
-            }
-            return false;
-        });
-        document.addEventListener("keyup", function (e) {
-            main.gameScene.hero.runStop();
-        });
-    }
-
-    /**
-     * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
-     * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
-     */
-    private createBitmapByName(name: string): egret.Bitmap {
-        let result = new egret.Bitmap();
-        let texture: egret.Texture = RES.getRes(name);
-        result.texture = texture;
-        return result;
-    }
-
-    /**
-     * 描述文件加载成功，开始播放动画
-     * Description file loading is successful, start to play the animation
-     */
-    private startAnimation(result: Array<any>): void {
-        let self: any = this;
-
-        let parser = new egret.HtmlTextParser();
-        let textflowArr: Array<Array<egret.ITextElement>> = [];
-        for (let i: number = 0; i < result.length; i++) {
-            textflowArr.push(parser.parser(result[i]));
-        }
-
-        let textfield = self.textfield;
-        let count = -1;
-        let change: Function = function () {
-            count++;
-            if (count >= textflowArr.length) {
-                count = 0;
-            }
-            let lineArr = textflowArr[count];
-
-            self.changeDescription(textfield, lineArr);
-
-            let tw = egret.Tween.get(textfield);
-            tw.to({ "alpha": 1 }, 200);
-            tw.wait(2000);
-            tw.to({ "alpha": 0 }, 200);
-            tw.call(change, self);
-        };
-
-        change();
-    }
-
-    /**
-     * 切换描述内容
-     * Switch to described content
-     */
-    private changeDescription(textfield: egret.TextField, textFlow: Array<egret.ITextElement>): void {
-        textfield.textFlow = textFlow;
+        // let main = this;
+        // document.addEventListener("keydown", function (e) {
+        //     switch (e.keyCode) {
+        //         case 38:
+        //             main.gameScene.hero.runStart("up");
+        //             break;
+        //         case 40:
+        //             main.gameScene.hero.runStart("down");
+        //             break;
+        //         case 37:
+        //             main.gameScene.hero.runStart("left");
+        //             break;
+        //         case 39:
+        //             main.gameScene.hero.runStart("right");
+        //             break;
+        //     }
+        //     return false;
+        // });
+        // document.addEventListener("keyup", function (e) {
+        //     main.gameScene.hero.runStop();
+        // });
     }
 }
 
