@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var boom;
 (function (boom) {
     var ControlEvent = (function (_super) {
@@ -5,15 +13,15 @@ var boom;
         function ControlEvent(type, bubbles, cancelable) {
             if (bubbles === void 0) { bubbles = false; }
             if (cancelable === void 0) { cancelable = false; }
-            _super.call(this, type, bubbles, cancelable);
-            this._status = "";
+            var _this = _super.call(this, type, bubbles, cancelable) || this;
+            _this._status = "";
+            return _this;
         }
-        var d = __define,c=ControlEvent,p=c.prototype;
-        ControlEvent.START = "START";
-        ControlEvent.STOP = "STOP";
         return ControlEvent;
     }(egret.Event));
+    ControlEvent.START = "START";
+    ControlEvent.STOP = "STOP";
     boom.ControlEvent = ControlEvent;
-    egret.registerClass(ControlEvent,'boom.ControlEvent');
+    __reflect(ControlEvent.prototype, "boom.ControlEvent");
 })(boom || (boom = {}));
 //# sourceMappingURL=ControlEvent.js.map

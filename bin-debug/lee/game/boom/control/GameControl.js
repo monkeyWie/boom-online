@@ -1,3 +1,11 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  *
  * @author
@@ -8,16 +16,16 @@ var boom;
     var GameControl = (function (_super) {
         __extends(GameControl, _super);
         function GameControl() {
-            _super.call(this);
+            var _this = _super.call(this) || this;
             //按钮半径
-            this._radius = 20;
+            _this._radius = 20;
             //按钮间隔
-            this._space = this._radius / 2;
-            this._status = "";
-            this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+            _this._space = _this._radius / 2;
+            _this._status = "";
+            _this.once(egret.Event.ADDED_TO_STAGE, _this.onAddToStage, _this);
+            return _this;
         }
-        var d = __define,c=GameControl,p=c.prototype;
-        p.onAddToStage = function (event) {
+        GameControl.prototype.onAddToStage = function (event) {
             var _height = this.stage.stageHeight;
             this.up = new egret.Shape();
             this.up.x = this._radius * 3 + this._space;
@@ -100,37 +108,37 @@ var boom;
                 _obj.dispatchEvent(_obj.stopEvent);
             });
         };
-        p.doUp = function () {
+        GameControl.prototype.doUp = function () {
             this._status = "up";
             this.commonDo();
         };
-        p.doDown = function () {
+        GameControl.prototype.doDown = function () {
             this._status = "down";
             this.commonDo();
         };
-        p.doLeft = function () {
+        GameControl.prototype.doLeft = function () {
             this._status = "left";
             this.commonDo();
         };
-        p.doRight = function () {
+        GameControl.prototype.doRight = function () {
             this._status = "right";
             this.commonDo();
         };
-        p.commonDo = function () {
+        GameControl.prototype.commonDo = function () {
             this.startEvent._status = this._status;
             this.dispatchEvent(this.startEvent);
         };
-        p.doStop = function () {
+        GameControl.prototype.doStop = function () {
             this._status = "";
             this.dispatchEvent(this.stopEvent);
         };
-        p.handleTouch = function (evt) {
+        GameControl.prototype.handleTouch = function (evt) {
             console.log(evt.target.x);
             console.log(evt.target.y);
         };
         return GameControl;
     }(egret.DisplayObjectContainer));
     boom.GameControl = GameControl;
-    egret.registerClass(GameControl,'boom.GameControl');
+    __reflect(GameControl.prototype, "boom.GameControl");
 })(boom || (boom = {}));
 //# sourceMappingURL=GameControl.js.map

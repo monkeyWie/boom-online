@@ -10,14 +10,15 @@ var game_file_list = [
 	"libs/modules/res/res.js",
 	"libs/modules/keyboard/keyboard.js",
 	"libs/modules/tiled/tiled.js",
+	"bin-debug/LoadingUI.js",
+	"bin-debug/Main.js",
+	"bin-debug/lee/game/boom/GameScene.js",
 	"bin-debug/lee/game/boom/bean/Hero.js",
 	"bin-debug/lee/game/boom/bean/Map.js",
 	"bin-debug/lee/game/boom/control/ControlEvent.js",
 	"bin-debug/lee/game/boom/control/GameControl.js",
-	"bin-debug/lee/game/boom/GameScene.js",
+	"bin-debug/lee/game/boom/control/RockerControl.js",
 	"bin-debug/lee/game/boom/handle/GameHandle.js",
-	"bin-debug/LoadingUI.js",
-	"bin-debug/Main.js",
 	//----auto game_file_list end----
 ];
 
@@ -51,7 +52,7 @@ egret_native.egretStart = function () {
         //以下为自动修改，请勿修改
         //----auto option start----
 		entryClassName: "Main",
-		frameRate: 60,
+		frameRate: 30,
 		scaleMode: "exactFit",
 		contentWidth: 512,
 		contentHeight: 288,

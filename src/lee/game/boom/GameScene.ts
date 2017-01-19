@@ -1,8 +1,9 @@
 namespace boom {
 	export class GameScene extends egret.DisplayObjectContainer {
-		private hero: Hero;
-		private map: Map;
-		private control: GameControl;
+		public hero: Hero;
+		public map: Map;
+		// private control: GameControl;
+		private control: RockerControl;
 		private lastTime: number;
 
 		public constructor() {
@@ -18,10 +19,13 @@ namespace boom {
 			this.lastTime = egret.getTimer();
 			this.addEventListener(egret.Event.ENTER_FRAME, this.drawGameView, this);
 			//手柄控制器
-			this.control = new GameControl();
+			this.control = new RockerControl();
 			this.control.addEventListener(ControlEvent.START,this.onTouchStart,this);
 			this.control.addEventListener(ControlEvent.STOP,this.onTouchStop,this);
 			this.addChild(this.control);
+			
+			// this.control = new RockerControl();
+			// this.addChild(this.control);
 		}
 
 		private drawGameView() {
