@@ -1,1 +1,1 @@
-用Egret游戏引擎开发的联机版炸弹人游戏。
+用Egret游戏引擎开发的联机版炸弹人游戏。[试玩](https://monkeywie.github.io/boom-online) 
