@@ -20,30 +20,42 @@ var boom;
             //行走速度
             _this.speed = 1;
             //状态
-            _this.status = "";
+            _this.status = 0;
             var data = RES.getRes("baobao_json");
             var txtr = RES.getRes("baobao_png");
             var mcFactory = new egret.MovieClipDataFactory(data, txtr);
             _this.mcds = {
-                "up": mcFactory.generateMovieClipData("up"),
-                "down": mcFactory.generateMovieClipData("down"),
-                "left": mcFactory.generateMovieClipData("left"),
-                "right": mcFactory.generateMovieClipData("right")
+                1: mcFactory.generateMovieClipData("up"),
+                2: mcFactory.generateMovieClipData("down"),
+                3: mcFactory.generateMovieClipData("left"),
+                4: mcFactory.generateMovieClipData("right")
             };
             _this.scaleX = 0.8;
             _this.scaleY = 0.8;
-            _this.movieClipData = _this.mcds["down"];
+            _this.movieClipData = _this.mcds[2];
             _this.frameRate = 48;
             _this.x = 32;
             _this.y = 64;
             _this.gotoAndStop(1);
             return _this;
         }
-        Hero.prototype.getSpped = function () {
+        Hero.prototype.getId = function () {
+            return this.id;
+        };
+        Hero.prototype.setId = function (id) {
+            this.id = id;
+        };
+        Hero.prototype.getSpeed = function () {
             return this.speed;
         };
-        Hero.prototype.setSpped = function (speed) {
+        Hero.prototype.setSpeed = function (speed) {
             this.speed = speed;
+        };
+        Hero.prototype.getStatus = function () {
+            return this.status;
+        };
+        Hero.prototype.setStatus = function (status) {
+            this.status = status;
         };
         /**
          * 渲染
@@ -55,7 +67,7 @@ var boom;
             var hitY1 = this.y, hitY2 = this.y, afterY = this.y;
             if (this.status) {
                 switch (this.status) {
-                    case "up":
+                    case 1:
                         //this.y -= repairSpeed;
                         afterY -= repairSpeed;
                         //上
@@ -63,7 +75,7 @@ var boom;
                         //右
                         hitX2 += this.width;
                         break;
-                    case "down":
+                    case 2:
                         //this.y += repairSpeed;
                         afterY += repairSpeed;
                         //下
@@ -71,7 +83,7 @@ var boom;
                         //右
                         hitX2 += this.width;
                         break;
-                    case "left":
+                    case 3:
                         // this.x -= repairSpeed;
                         afterX -= repairSpeed;
                         //左
@@ -79,7 +91,7 @@ var boom;
                         //下
                         hitY2 += this.height;
                         break;
-                    case "right":
+                    case 4:
                         // this.x += repairSpeed;
                         afterX += repairSpeed;
                         //右
@@ -107,8 +119,13 @@ var boom;
             }
         };
         Hero.prototype.runStop = function () {
-            this.status = "";
+            this.status = 0;
             this.stop();
+        };
+        /**
+         * 放炸弹
+         */
+        Hero.prototype.dropBomb = function () {
         };
         return Hero;
     }(egret.MovieClip));

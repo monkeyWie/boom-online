@@ -21,7 +21,7 @@ var boom;
             _this._radius = 20;
             //按钮间隔
             _this._space = _this._radius / 2;
-            _this._status = "";
+            _this._status = 0;
             _this.once(egret.Event.ADDED_TO_STAGE, _this.onAddToStage, _this);
             return _this;
         }
@@ -82,19 +82,19 @@ var boom;
             this.right.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.doStop, this);
             //键盘监听
             document.addEventListener("keydown", function (e) {
-                var currStatus = "";
+                var currStatus = 0;
                 switch (e.keyCode) {
                     case 38:
-                        currStatus = "up";
+                        currStatus = 1;
                         break;
                     case 40:
-                        currStatus = "down";
+                        currStatus = 2;
                         break;
                     case 37:
-                        currStatus = "left";
+                        currStatus = 3;
                         break;
                     case 39:
-                        currStatus = "right";
+                        currStatus = 4;
                         break;
                 }
                 if (currStatus != _obj._status) {
@@ -104,24 +104,24 @@ var boom;
                 return false;
             });
             document.addEventListener("keyup", function (e) {
-                _obj._status = "";
+                _obj._status = 0;
                 _obj.dispatchEvent(_obj.stopEvent);
             });
         };
         GameControl.prototype.doUp = function () {
-            this._status = "up";
+            this._status = 1;
             this.commonDo();
         };
         GameControl.prototype.doDown = function () {
-            this._status = "down";
+            this._status = 2;
             this.commonDo();
         };
         GameControl.prototype.doLeft = function () {
-            this._status = "left";
+            this._status = 3;
             this.commonDo();
         };
         GameControl.prototype.doRight = function () {
-            this._status = "right";
+            this._status = 4;
             this.commonDo();
         };
         GameControl.prototype.commonDo = function () {
@@ -129,7 +129,7 @@ var boom;
             this.dispatchEvent(this.startEvent);
         };
         GameControl.prototype.doStop = function () {
-            this._status = "";
+            this._status = 0;
             this.dispatchEvent(this.stopEvent);
         };
         GameControl.prototype.handleTouch = function (evt) {

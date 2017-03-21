@@ -119,7 +119,7 @@ declare namespace egret {
          * @platform Web,Native
          * @language zh_CN
          */
-        name: string;
+        readonly name: string;
         /**
          * Frame serial number of the label
          * @version Egret 2.4
@@ -132,7 +132,7 @@ declare namespace egret {
          * @platform Web,Native
          * @language zh_CN
          */
-        frame: number;
+        readonly frame: number;
         /**
          * Frame serial number, the end of the label
          * @version Egret 2.4
@@ -145,7 +145,7 @@ declare namespace egret {
          * @platform Web,Native
          * @language zh_CN
          */
-        end: number;
+        readonly end: number;
         /**
          * Duplicate the current frame label object
          * @version Egret 2.4
@@ -385,7 +385,7 @@ declare namespace egret {
          * @version Egret 2.4
          * @platform Web,Native
          */
-        spriteSheet: SpriteSheet;
+        readonly spriteSheet: SpriteSheet;
         /**
          * @private
          *
@@ -1360,38 +1360,6 @@ declare namespace egret {
 }
 declare namespace egret {
     /**
-     * @private
-     * @version Egret 2.4
-     * @platform Web,Native
-     */
-    interface NetContext extends HashObject {
-        /**
-         *
-         * @param loader
-         * @version Egret 2.4
-         * @platform Web,Native
-         */
-        proceed(loader: URLLoader): void;
-    }
-    /**
-     * @private
-     * @version Egret 2.4
-     * @platform Web,Native
-     */
-    let NetContext: {
-        new (): NetContext;
-        getNetContext(): NetContext;
-    };
-    /**
-     * @private
-     *
-     * @param request
-     * @returns
-     */
-    function $getUrl(request: URLRequest): string;
-}
-declare namespace egret {
-    /**
      * UThe URLLoader class downloads data from a URL as text, binary data, or URL-encoded variables.  It is useful for downloading text files, XML, or other information to be used in a dynamic, data-driven application.
      * A URLLoader object downloads all of the data from a URL before making it available to code in the applications. It sends out notifications about the progress of the download,
      * which you can monitor through bytesLoaded and bytesTotal properties, as well as through dispatched events.
@@ -1499,6 +1467,19 @@ declare namespace egret {
          * @language zh_CN
          */
         load(request: URLRequest): void;
+        private getResponseType(dataFormat);
+        /**
+         * @private
+         *
+         * @param loader
+         */
+        private loadSound(loader);
+        /**
+         * @private
+         *
+         * @param loader
+         */
+        private loadTexture(loader);
         /**
          * @private
          */
@@ -1767,25 +1748,25 @@ declare namespace egret {
          * @version Egret 2.4
          * @platform Web,Native
          */
-        totalFrames: number;
+        readonly totalFrames: number;
         /**
          * MovieClip 实例当前播放的帧的序号
          * @version Egret 2.4
          * @platform Web,Native
          */
-        currentFrame: number;
+        readonly currentFrame: number;
         /**
          * MovieClip 实例当前播放的帧的标签。如果当前帧没有标签，则 currentFrameLabel返回null。
          * @version Egret 2.4
          * @platform Web,Native
          */
-        currentFrameLabel: string;
+        readonly currentFrameLabel: string;
         /**
          * 当前播放的帧对应的标签，如果当前帧没有标签，则currentLabel返回包含标签的先前帧的标签。如果当前帧和先前帧都不包含标签，currentLabel返回null。
          * @version Egret 2.4
          * @platform Web,Native
          */
-        currentLabel: string;
+        readonly currentLabel: string;
         /**
          * MovieClip 实例的帧频
          * @version Egret 2.4
@@ -1797,7 +1778,7 @@ declare namespace egret {
          * @version Egret 2.4
          * @platform Web,Native
          */
-        isPlaying: boolean;
+        readonly isPlaying: boolean;
         /**
          * @version Egret 2.4
          * @platform Web,Native
@@ -2247,12 +2228,6 @@ declare namespace egret {
          * @platform Web,Native
          */
         /**
-         * 网络Context
-         * @member egret.MainContext#netContext
-         * @version Egret 2.4
-         * @platform Web,Native
-         */
-        /**
          * 设备divice
          * @member egret.MainContext#deviceContext
          * @version Egret 2.4
@@ -2264,7 +2239,7 @@ declare namespace egret {
          * @version Egret 2.4
          * @platform Web,Native
          */
-        stage: Stage;
+        readonly stage: Stage;
         /**
          * @version Egret 2.4
          * @platform Web,Native
@@ -2288,7 +2263,7 @@ declare namespace egret {
          * @version Egret 2.4
          * @platform Web,Native
          */
-        static runtimeType: string;
+        static readonly runtimeType: string;
         /**
          * @version Egret 2.4
          * @platform Web,Native
@@ -2316,7 +2291,7 @@ declare namespace egret {
          * @version Egret 2.4
          * @platform Web,Native
          */
-        static instance: egret.MainContext;
+        static readonly instance: egret.MainContext;
     }
 }
 /**
@@ -2400,7 +2375,7 @@ declare namespace egret {
          * @platform Web,Native
          * @language zh_CN
          */
-        length: number;
+        readonly length: number;
         /**
          * Cache an object for repeat use
          * @param object {any} The object to be cached

@@ -5,12 +5,14 @@
  */
 namespace boom {
     export class Hero extends egret.MovieClip {
+        //用户ID由服务器分配
+        private id: number;
         //行走速度
         private speed: number = 1;
         //动画效果集合
         private mcds: { [key: string]: egret.MovieClipData; };
         //状态
-        private status = "";
+        private status = 0;
 
         public constructor() {
             super();
@@ -18,25 +20,39 @@ namespace boom {
             let txtr = RES.getRes("baobao_png");
             let mcFactory: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data, txtr);
             this.mcds = {
-                "up": mcFactory.generateMovieClipData("up"),
-                "down": mcFactory.generateMovieClipData("down"),
-                "left": mcFactory.generateMovieClipData("left"),
-                "right": mcFactory.generateMovieClipData("right")
+                1: mcFactory.generateMovieClipData("up"),
+                2: mcFactory.generateMovieClipData("down"),
+                3: mcFactory.generateMovieClipData("left"),
+                4: mcFactory.generateMovieClipData("right")
             };
             this.scaleX = 0.8;
             this.scaleY = 0.8;
-            this.movieClipData = this.mcds["down"];
+            this.movieClipData = this.mcds[2];
             this.frameRate = 48;
             this.x = 32;
             this.y = 64;
             this.gotoAndStop(1);
         }
 
-        public getSpped(): number {
+        public getId(): number {
+            return this.id;
+        }
+        public setId(id: number): void {
+            this.id = id;
+        }
+
+        public getSpeed(): number {
             return this.speed;
         }
-        public setSpped(speed: number): void {
+        public setSpeed(speed: number): void {
             this.speed = speed;
+        }
+
+        public getStatus(): number {
+            return this.status;
+        }
+        public setStatus(status: number): void {
+            this.status = status;
         }
 
         /**
@@ -50,7 +66,7 @@ namespace boom {
 
             if (this.status) {
                 switch (this.status) {
-                    case "up":
+                    case 1:
                         //this.y -= repairSpeed;
                         afterY -= repairSpeed;
                         //上
@@ -58,7 +74,7 @@ namespace boom {
                         //右
                         hitX2 += this.width;
                         break;
-                    case "down":
+                    case 2:
                         //this.y += repairSpeed;
                         afterY += repairSpeed;
                         //下
@@ -66,7 +82,7 @@ namespace boom {
                         //右
                         hitX2 += this.width;
                         break;
-                    case "left":
+                    case 3:
                         // this.x -= repairSpeed;
                         afterX -= repairSpeed;
                         //左
@@ -74,7 +90,7 @@ namespace boom {
                         //下
                         hitY2 += this.height;
                         break;
-                    case "right":
+                    case 4:
                         // this.x += repairSpeed;
                         afterX += repairSpeed;
                         //右
@@ -95,7 +111,7 @@ namespace boom {
          * 人物行走
          * @param 方向 up,down,left,right
          */
-        public runStart(direction: string) {
+        public runStart(direction: number) {
             if (this.status != direction) {
                 this.status = direction;
                 this.movieClipData = this.mcds[this.status];
@@ -104,7 +120,7 @@ namespace boom {
         }
 
         public runStop() {
-            this.status = "";
+            this.status = 0;
             this.stop();
         }
 

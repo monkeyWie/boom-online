@@ -13,7 +13,7 @@ namespace boom {
 		private _radius: number = 20;
 		//按钮间隔
 		private _space: number = this._radius / 2;
-		private _status: string = "";
+		private _status: number = 0;
 
 		private startEvent: ControlEvent;
 		private stopEvent: ControlEvent;
@@ -92,19 +92,19 @@ namespace boom {
 
 			//键盘监听
 			document.addEventListener("keydown", function (e) {
-				let currStatus = "";
+				let currStatus = 0;
 				switch (e.keyCode) {
 					case 38:
-						currStatus = "up";
+						currStatus = 1;
 						break;
 					case 40:
-						currStatus = "down";
+						currStatus = 2;
 						break;
 					case 37:
-						currStatus = "left";
+						currStatus = 3;
 						break;
 					case 39:
-						currStatus = "right";
+						currStatus = 4;
 						break;
 				}
 				if (currStatus != _obj._status) {
@@ -114,28 +114,28 @@ namespace boom {
 				return false;
 			});
 			document.addEventListener("keyup", function (e) {
-				_obj._status = "";
+				_obj._status = 0;
 				_obj.dispatchEvent(_obj.stopEvent);
 			});
 		}
 
 		private doUp() {
-			this._status = "up";
+			this._status = 1;
 			this.commonDo();
 		}
 
 		private doDown() {
-			this._status = "down";
+			this._status = 2;
 			this.commonDo();
 		}
 
 		private doLeft() {
-			this._status = "left";
+			this._status = 3;
 			this.commonDo();
 		}
 
 		private doRight() {
-			this._status = "right";
+			this._status = 4;
 			this.commonDo();
 		}
 
@@ -145,7 +145,7 @@ namespace boom {
 		}
 
 		private doStop() {
-			this._status = "";
+			this._status = 0;
 			this.dispatchEvent(this.stopEvent);
 		}
 

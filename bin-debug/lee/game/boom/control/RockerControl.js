@@ -84,27 +84,31 @@ var boom;
          * 计算行走方向
          */
         RockerControl.prototype.handleTouch = function () {
+            var curryStatus = this.startEvent._status;
             var radian = Math.atan2(this._in.y - this._out.y, this._in.x - this._out.x);
             //计算角度
             var angle = radian * 180 / Math.PI;
             //上
             if (angle >= -135 && angle < -45) {
-                this.startEvent._status = "up";
+                this.startEvent._status = 1;
             }
             else if (angle >= -45 && angle < 45) {
-                this.startEvent._status = "right";
+                this.startEvent._status = 4;
             }
             else if (angle >= 45 && angle < 135) {
-                this.startEvent._status = "down";
+                this.startEvent._status = 2;
             }
             else {
-                this.startEvent._status = "left";
+                this.startEvent._status = 3;
             }
-            this.dispatchEvent(this.startEvent);
+            if (this.startEvent._status != curryStatus) {
+                this.dispatchEvent(this.startEvent);
+            }
         };
         RockerControl.prototype.onTouchEnd = function (evt) {
             this._in.visible = false;
             this._out.visible = false;
+            this.startEvent._status = 0;
             this.dispatchEvent(this.stopEvent);
         };
         return RockerControl;

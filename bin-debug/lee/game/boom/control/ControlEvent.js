@@ -14,7 +14,7 @@ var boom;
             if (bubbles === void 0) { bubbles = false; }
             if (cancelable === void 0) { cancelable = false; }
             var _this = _super.call(this, type, bubbles, cancelable) || this;
-            _this._status = "";
+            _this._status = 0;
             return _this;
         }
         return ControlEvent;
